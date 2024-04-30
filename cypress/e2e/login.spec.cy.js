@@ -7,6 +7,7 @@ describe('Login-Orange HRM Tests', () => {
     passwordField: "[name='password']",
     loginButton: "[type='submit']",
     sectionTitleTopBar: ".oxd-topbar-header-breadcrumb-module",
+    dashboardGrid:".orangehrm-dashboard-grid",
     wrongCredentialAlert: ".oxd-alert-content > .oxd-text"
 
   }
@@ -17,7 +18,7 @@ describe('Login-Orange HRM Tests', () => {
     cy.get(selectorList.passwordField).type('admin123')
     cy.get(selectorList.loginButton).click()
     cy.location('pathname').should('equal','/web/index.php/dashboard/index')
-    cy.get(selectorList.sectionTitleTopBar).contains('Dashboard')
+    cy.get(selectorList.dashboardGrid)
   })
   it('Login - Invalid username and password', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
