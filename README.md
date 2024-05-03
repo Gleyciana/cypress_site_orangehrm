@@ -5,7 +5,7 @@ Este é um teste automatizado que realiza o fluxo de login e a atualização de 
 
 ## Site Utilizado
 
-O teste foi realizado no site [ORANGE HRM](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
+O teste foi realizado no site [Orange HRM](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
 
 ## Pré-requisitos
 
