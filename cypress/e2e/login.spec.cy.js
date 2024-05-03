@@ -1,48 +1,24 @@
 /// <reference types="cypress" />
 
-import userData from '../fixtures/users/userData.json';
+import userData from '../fixtures/users/userData.json'
+import LoginPage from '../pages/loginPage.js'
+import DashboardPage from '../pages/dashboardPage.js'
 
-describe('Login-Orange HRM Tests', () => {
+const loginPage = new LoginPage()
+const dashboardPage = new DashboardPage()
 
-  const selectorList = {
-    usernameField: "[name='username']",
-    passwordField: "[name='password']",
-    loginButton: "[type='submit']",
-    sectionTitleTopBar: ".oxd-topbar-header-breadcrumb-module",
-    dashboardGrid:".orangehrm-dashboard-grid",
-    wrongCredentialAlert: ".oxd-alert-content > .oxd-text"
+describe('Login Orange HRM Tests', () => {
 
-  }
-
-  it('Login - Success', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorList.passwordField).type(userData.userSuccess.password)
-    cy.get(selectorList.loginButton).click()
-    cy.location('pathname').should('equal','/web/index.php/dashboard/index')
-    cy.get(selectorList.dashboardGrid)
+  it('Login-Success',()=>{
+    loginPage.acessLoginPage()
+    loginPage.loginWithAnyUser(userData.userSuccess.username,userData.userSuccess.password)
+    dashboardPage.checkDashboardPage()
   })
-  it('Login - Invalid username and password', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.usernameField).type(userData.userFail.username)
-    cy.get(selectorList.passwordField).type(userData.userFail.password)
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.wrongCredentialAlert).contains('Invalid credentials')
-  })
-  it('Login - Invalid username', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.usernameField).type(userData.userFail.username)
-    cy.get(selectorList.passwordField).type(userData.userSuccess.password)
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.wrongCredentialAlert).contains('Invalid credentials')
 
-  })
-  it('Login - Invalid password', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorList.passwordField).type(userData.userFail.password)
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.wrongCredentialAlert).contains('Invalid credentials')
+  it('Login-Fail',()=>{
+    loginPage.acessLoginPage()
+    loginPage.loginWithAnyUser(userData.userFail.username,userData.userFail.password)
+    loginPage.checkAcessInvalid()
   })
 })
 
